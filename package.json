@@ -22,7 +22,7 @@
     "use:taobao": "nrm use taobao",
     "update": "ncu -u --reject sass-loader,sass,screenfull,eslint,chalk,vue-echarts,vue,vue-template-compiler,vue-router,vuex,@vue/cli-plugin-babel,@vue/cli-plugin-eslint,@vue/cli-service,eslint-plugin-vue&&cnpm i",
     "update:globle": "ncu -g --concurrency 10 --timeout 80000",
-    "push": "start ./push.sh",
+    "push": "zsh push.sh",
     "deploy": "start ./deploy.sh"
   },
   "repository": {
