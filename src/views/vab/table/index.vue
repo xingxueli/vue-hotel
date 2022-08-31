@@ -11,10 +11,6 @@
         <el-button icon="el-icon-edit" type="primary" @click="handleOff">
           下架
         </el-button>
-        <el-button type="primary" @click="testMessage">baseMessage</el-button>
-        <el-button type="primary" @click="testALert">baseAlert</el-button>
-        <el-button type="primary" @click="testConfirm">baseConfirm</el-button>
-        <el-button type="primary" @click="testNotify">baseNotify</el-button>
       </vab-query-form-left-panel>
       <vab-query-form-right-panel>
         <el-form
@@ -54,46 +50,57 @@
         type="selection"
         width="55"
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="序号" width="95">
-        <template #default="scope">
-          {{ scope.$index + 1 }}
-        </template>
-      </el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="序号"
+        prop="spuId"
+        width="95"
+      ></el-table-column>
       <el-table-column
         show-overflow-tooltip
         prop="title"
-        label="标题"
+        label="客房名称"
+        width="150"
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="作者"
-        prop="author"
+        label="分类"
+        prop="typeString"
       ></el-table-column>
-      <el-table-column show-overflow-tooltip label="头像">
+      <el-table-column show-overflow-tooltip label="图片">
         <template #default="{ row }">
           <el-image
             v-if="imgShow"
             :preview-src-list="imageList"
-            :src="row.img"
+            :src="row.thumb"
           ></el-image>
         </template>
       </el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="点击量"
-        prop="pageViews"
+        label="价格"
+        prop="price"
+        sortable
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="划线价格"
+        prop="originPrice"
         sortable
       ></el-table-column>
       <el-table-column show-overflow-tooltip label="状态">
         <template #default="{ row }">
           <el-tooltip
-            :content="row.status"
+            :content="row.roomStatusString"
             class="item"
             effect="dark"
             placement="top-start"
           >
-            <el-tag :type="row.status | statusFilter">
-              {{ row.status }}
+            <el-tag v-if="row.roomStatus === 0" type="warning" size="medium">
+              {{ row.roomStatusString }}
+            </el-tag>
+            <el-tag v-if="row.roomStatus === 1" type="success" size="medium">
+              {{ row.roomStatusString }}
             </el-tag>
           </el-tooltip>
         </template>
@@ -101,7 +108,7 @@
       <el-table-column
         show-overflow-tooltip
         label="时间"
-        prop="datetime"
+        prop="createTime"
         width="200"
       ></el-table-column>
       <el-table-column show-overflow-tooltip label="操作" width="180px">
@@ -114,7 +121,7 @@
     </el-table>
     <el-pagination
       :background="background"
-      :current-page="queryForm.pageNo"
+      :current-page="queryForm.pageNum"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
@@ -136,9 +143,8 @@
     filters: {
       statusFilter(status) {
         const statusMap = {
-          published: 'success',
-          draft: 'gray',
-          deleted: 'danger',
+          1: 'success',
+          0: 'info',
         }
         return statusMap[status]
       },
@@ -155,7 +161,7 @@
         selectRows: '',
         elementLoadingText: '正在加载...',
         queryForm: {
-          pageNo: 1,
+          pageNum: 1,
           pageSize: 20,
           title: '',
         },
@@ -199,20 +205,21 @@
         this.fetchData()
       },
       handleCurrentChange(val) {
-        this.queryForm.pageNo = val
+        this.queryForm.pageNum = val
         this.fetchData()
       },
       handleQuery() {
-        this.queryForm.pageNo = 1
+        this.queryForm.pageNum = 1
         this.fetchData()
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
+        const { data } = await getList(this.queryForm)
+        const { rooms, totalCount } = data
+        this.list = rooms
         const imageList = []
-        data.forEach((item, index) => {
-          imageList.push(item.img)
+        rooms.forEach((item, index) => {
+          imageList.push(item.thumb)
         })
         this.imageList = imageList
         this.total = totalCount

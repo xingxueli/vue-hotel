@@ -87,7 +87,8 @@ instance.interceptors.response.use(
       ? [...successCode]
       : [...[successCode]]
     // 是否操作正常
-    if (codeVerificationArray.includes(code)) {
+    // console.log(data)
+    if (code == 'Success' || codeVerificationArray.includes(code)) {
       return data
     } else {
       handleCode(code, msg)

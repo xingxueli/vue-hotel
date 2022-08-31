@@ -1,7 +1,7 @@
 const data = [
   {
-    title: '建党百年惊喜福利，付费版本买一得二全年最低价，点我购买',
-    url: 'https://vue-admin-beautiful.com/authorization',
+    title: '开始使用你的客房管理系统',
+    url: '',
   },
   /*   {
     title: 'Admin Pro 3.0付费版本已发布，增加多项贴心功能，点我提前体验',

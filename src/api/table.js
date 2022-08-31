@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getList(data) {
   return request({
-    url: '/table/getList',
+    url: 'http://localhost/room/list',
     method: 'post',
     data,
   })
