@@ -5,8 +5,11 @@
         <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
           添加
         </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
-          删除
+        <el-button icon="el-icon-edit" type="primary" @click="handleOn">
+          上架
+        </el-button>
+        <el-button icon="el-icon-edit" type="primary" @click="handleOff">
+          下架
         </el-button>
         <el-button type="primary" @click="testMessage">baseMessage</el-button>
         <el-button type="primary" @click="testALert">baseAlert</el-button>
@@ -104,7 +107,8 @@
       <el-table-column show-overflow-tooltip label="操作" width="180px">
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="text" @click="handleDelete(row)">删除</el-button>
+          <el-button type="text" @click="handleOn(row)">上架</el-button>
+          <el-button type="text" @click="handleOff(row)">下架</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -184,26 +188,11 @@
       handleEdit(row) {
         this.$refs['edit'].showEdit(row)
       },
-      handleDelete(row) {
-        if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
-            const { msg } = await doDelete({ ids: row.id })
-            this.$baseMessage(msg, 'success')
-            this.fetchData()
-          })
-        } else {
-          if (this.selectRows.length > 0) {
-            const ids = this.selectRows.map((item) => item.id).join()
-            this.$baseConfirm('你确定要删除选中项吗', null, async () => {
-              const { msg } = await doDelete({ ids: ids })
-              this.$baseMessage(msg, 'success')
-              this.fetchData()
-            })
-          } else {
-            this.$baseMessage('未选中任何行', 'error')
-            return false
-          }
-        }
+      handleOn() {
+        this.$baseMessage('handleOn', 'success')
+      },
+      handleOff() {
+        this.$baseMessage('handleOff', 'success')
       },
       handleSizeChange(val) {
         this.queryForm.pageSize = val

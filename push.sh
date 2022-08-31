@@ -1,11 +1,7 @@
-#强制推送
-#!/usr/bin/env bash
-set -e
-git init
+#/bin/zsh
 git add -A
-git commit -m '🎉 feat: init project'
-git push -f "https://${access_token}@github.com/chuzhixin/vue-admin-better.git" master
-exec /bin/bash
+git commit -m 'hhh'
+git push -f "https://github.com/xingxueli/vue-hotel.git" main
 
 
 
