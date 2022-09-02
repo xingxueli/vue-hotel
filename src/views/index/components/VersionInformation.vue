@@ -43,13 +43,9 @@
               </el-button>
             </a>
             <a
-              href="https://github.com/chuzhixin/vue-admin-beautiful/"
+              href="https://github.com/xingxueli/vue-hotel.git"
               target="_blank"
-            >
-              <el-button style="margin-left: 10px" type="warning">
-                开源免费版
-              </el-button>
-            </a>
+            ></a>
           </td>
         </tr>
       </table>

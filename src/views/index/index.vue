@@ -84,10 +84,7 @@
                 <el-button type="primary">QQ讨论群、基础版、文档</el-button>
               </a>
             </el-popover>
-            <a
-              target="_blank"
-              href="https://github.com/chuzhixin/vue-admin-better"
-            >
+            <a target="_blank" href="https://github.com/xingxueli/vue-hotel">
               <el-button type="warning">github下载源码点star</el-button>
             </a>
             <a
@@ -486,7 +483,7 @@
           {
             icon: 'laptop-code',
             title: '源码',
-            link: 'https://github.com/chuzhixin/vue-admin-better',
+            link: 'https://github.com/xingxueli/vue-hotel',
             color: '#b37feb',
           },
           {

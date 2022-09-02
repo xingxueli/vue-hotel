@@ -27,7 +27,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chuzhixin/vue-admin-beautiful.git"
+    "url": "git+https://github.com/xingxueli/vue-hotel.git"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"

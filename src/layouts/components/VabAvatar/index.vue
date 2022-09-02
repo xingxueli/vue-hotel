@@ -37,7 +37,7 @@
             this.personalCenter()
             break
           case 'github':
-            window.open('https://github.com/chuzhixin/vue-admin-beautiful')
+            window.open('https://github.com/xingxueli/vue-hotel')
             break
           case 'gitee':
             window.open('https://gitee.com/chu1204505056/vue-admin-beautiful')

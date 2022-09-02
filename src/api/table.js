@@ -10,15 +10,23 @@ export function getList(data) {
 
 export function doEdit(data) {
   return request({
-    url: '/table/doEdit',
+    url: 'http://localhost/room/update',
     method: 'post',
     data,
   })
 }
 
-export function doDelete(data) {
+export function doCreate(data) {
   return request({
-    url: '/table/doDelete',
+    url: 'http://localhost/room/create',
+    method: 'post',
+    data,
+  })
+}
+
+export function doShelves(data) {
+  return request({
+    url: 'http://localhost/room/roomShelves',
     method: 'post',
     data,
   })

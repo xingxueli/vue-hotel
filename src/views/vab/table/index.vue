@@ -39,9 +39,9 @@
     <el-table
       ref="tableSort"
       v-loading="listLoading"
-      :data="list"
       :element-loading-text="elementLoadingText"
       :height="height"
+      :data="list"
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
     >
@@ -52,15 +52,26 @@
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="序号"
+        label="客房id"
         prop="spuId"
-        width="95"
+        width="55"
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        prop="storeName"
+        label="店名"
+        width="80"
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        prop="roomNum"
+        label="客房编码"
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
         prop="title"
         label="客房名称"
-        width="150"
+        width="100"
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
@@ -107,7 +118,7 @@
       </el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="时间"
+        label="创建时间"
         prop="createTime"
         width="200"
       ></el-table-column>
@@ -128,7 +139,7 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     ></el-pagination>
-    <table-edit ref="edit"></table-edit>
+    <table-edit ref="edit" @fetch-data="fetchData"></table-edit>
   </div>
 </template>
 
@@ -213,6 +224,7 @@
         this.fetchData()
       },
       async fetchData() {
+        console.log('111')
         this.listLoading = true
         const { data } = await getList(this.queryForm)
         const { rooms, totalCount } = data
