@@ -23,8 +23,7 @@ const dayjs = require('dayjs')
 const date = dayjs().format('YYYY_M_D')
 const time = dayjs().format('YYYY-M-D HH:mm:ss')
 process.env.VUE_APP_TITLE = title || 'vue-admin-beautiful'
-process.env.VUE_APP_AUTHOR =
-  author || 'https://gitee.com/chu1204505056/vue-admin-better'
+process.env.VUE_APP_AUTHOR = author || 'https://github.com/xingxueli/vue-hotel'
 process.env.VUE_APP_UPDATE_TIME = time
 process.env.VUE_APP_VERSION = version
 

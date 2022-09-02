@@ -87,10 +87,7 @@
             <a target="_blank" href="https://github.com/xingxueli/vue-hotel">
               <el-button type="warning">github下载源码点star</el-button>
             </a>
-            <a
-              target="_blank"
-              href="https://gitee.com/chu1204505056/vue-admin-better"
-            >
+            <a target="_blank" href="https://github.com/xingxueli/vue-hotel">
               <el-button type="warning">码云下载源码点star</el-button>
             </a>
             <a @click="handleChangeTheme">
@@ -150,7 +147,7 @@
           </div>
           <div style="text-align: center">
             <vab-colorful-icon style="font-size: 140px" icon-class="vab" />
-            <h1 style="font-size: 30px">vue-admin-better</h1>
+            <h1 style="font-size: 30px">vue-hotel</h1>
           </div>
           <div v-for="(item, index) in noticeList" :key="index">
             <el-alert
@@ -359,7 +356,7 @@
               },
               data: [
                 {
-                  name: 'vue-admin-better',
+                  name: 'vue-hotel',
                   value: 15000,
                 },
                 {

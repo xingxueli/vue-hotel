@@ -1,7 +1,6 @@
 import store from '@/store'
 
 /**
- * @author https://gitee.com/chu1204505056/vue-admin-better （不想保留author可删除）
  * @description 检查权限
  * @param value
  * @returns {boolean}

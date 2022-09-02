@@ -224,7 +224,6 @@
         this.fetchData()
       },
       async fetchData() {
-        console.log('111')
         this.listLoading = true
         const { data } = await getList(this.queryForm)
         const { rooms, totalCount } = data
