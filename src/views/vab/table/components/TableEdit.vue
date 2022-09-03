@@ -6,13 +6,6 @@
     @close="close"
   >
     <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-      <el-form-item label="店id" prop="storeId">
-        <el-input
-          v-model.trim="form.storeId"
-          :readonly="true"
-          autocomplete="off"
-        ></el-input>
-      </el-form-item>
       <el-form-item label="客房id" prop="spuId">
         <el-input
           v-model.trim="form.spuId"
@@ -20,8 +13,11 @@
           autocomplete="off"
         ></el-input>
       </el-form-item>
-      <el-form-item label="店名" prop="storeName">
-        <el-input v-model.trim="form.storeName" autocomplete="off"></el-input>
+      <el-form-item label="店名" prop="storeId">
+        <el-select v-model="form.storeId" placeholder="请选择房间分类">
+          <el-option label="红心农家乐" value="1"></el-option>
+          <el-option label="红兴农家乐" value="2"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="客房编码" prop="roomNum">
         <el-input v-model.trim="form.roomNum" autocomplete="off"></el-input>
@@ -30,7 +26,7 @@
         <el-input v-model.trim="form.title" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="分类" prop="type">
-        <el-select v-model="form.typeString" placeholder="请选择房间分类">
+        <el-select v-model="form.type" placeholder="请选择房间分类">
           <el-option label="单间大床房" value="1"></el-option>
           <el-option label="家庭房1孩" value="2"></el-option>
           <el-option label="家庭房2孩" value="3"></el-option>
@@ -61,7 +57,7 @@
 </template>
 
 <script>
-  import { doEdit } from '@/api/table'
+  import { doEdit, doCreate } from '@/api/table'
 
   export default {
     name: 'TableEdit',
@@ -82,16 +78,28 @@
         },
         rules: {
           title: [{ required: true, trigger: 'blur', message: '请输入标题' }],
-          storeName: [
-            { required: true, trigger: 'blur', message: '请输入店名' },
-          ],
           roomNum: [
             { required: true, trigger: 'blur', message: '请输入客房编码' },
           ],
           roomName: [
             { required: true, trigger: 'blur', message: '请输入客房名称' },
           ],
-          type: [{ required: true, message: '请选择分类', trigger: 'change' }],
+          storeId: [
+            {
+              required: true,
+              trigger: 'change',
+              message: '请输入店名',
+              type: 'string',
+            },
+          ],
+          type: [
+            {
+              required: true,
+              message: '请选择分类',
+              trigger: 'change',
+              type: 'string',
+            },
+          ],
           price: [
             {
               required: true,
@@ -108,7 +116,7 @@
               type: 'number',
             },
           ],
-          imageUrl: [
+          thumb: [
             { required: true, trigger: 'blur', message: '请输入客房图片' },
           ],
         },

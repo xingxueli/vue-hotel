@@ -5,12 +5,6 @@
         <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
           添加
         </el-button>
-        <el-button icon="el-icon-edit" type="primary" @click="handleOn">
-          上架
-        </el-button>
-        <el-button icon="el-icon-edit" type="primary" @click="handleOff">
-          下架
-        </el-button>
       </vab-query-form-left-panel>
       <vab-query-form-right-panel>
         <el-form
@@ -52,7 +46,7 @@
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        label="客房id"
+        label="id"
         prop="spuId"
         width="55"
       ></el-table-column>
@@ -77,6 +71,11 @@
         show-overflow-tooltip
         label="分类"
         prop="typeString"
+      ></el-table-column>
+      <el-table-column
+        show-overflow-tooltip
+        label="上下架"
+        prop="roomShelvesString"
       ></el-table-column>
       <el-table-column show-overflow-tooltip label="图片">
         <template #default="{ row }">
@@ -144,7 +143,7 @@
 </template>
 
 <script>
-  import { getList, doDelete } from '@/api/table'
+  import { getList, doDelete, doCreate, doShelves } from '@/api/table'
   import TableEdit from './components/TableEdit'
   export default {
     name: 'ComprehensiveTable',
@@ -175,6 +174,7 @@
           pageNum: 1,
           pageSize: 20,
           title: '',
+          fromApplet: 2,
         },
       }
     },
@@ -205,11 +205,25 @@
       handleEdit(row) {
         this.$refs['edit'].showEdit(row)
       },
-      handleOn() {
-        this.$baseMessage('handleOn', 'success')
+      async handleOn(row) {
+        const requestBody = { id: row.spuId, roomShelves: 1 }
+        const result = await doShelves(requestBody)
+        if (result.code === 'Success') {
+          this.$baseMessage('上架成功', 'success')
+        } else {
+          this.$baseMessage('上架失败', 'error')
+        }
+        this.fetchData()
       },
-      handleOff() {
-        this.$baseMessage('handleOff', 'success')
+      async handleOff(row) {
+        const requestBody = { id: row.spuId, roomShelves: 2 }
+        const result = await doShelves(requestBody)
+        if (result.code === 'Success') {
+          this.$baseMessage('下架成功', 'success')
+        } else {
+          this.$baseMessage('下架失败', 'error')
+        }
+        this.fetchData()
       },
       handleSizeChange(val) {
         this.queryForm.pageSize = val
