@@ -104,17 +104,8 @@ export const asyncRoutes = [
         },
       },
       {
-        path: 'map',
-        component: () => import('@/views/vab/table/index'),
-        name: 'Map',
-        meta: {
-          title: '入住管理',
-          permissions: ['admin'],
-        },
-      },
-      {
         path: 'order',
-        component: () => import('@/views/vab/table/index'),
+        component: () => import('@/views/vab/order/index'),
         name: 'Order',
         meta: {
           title: '订单管理',

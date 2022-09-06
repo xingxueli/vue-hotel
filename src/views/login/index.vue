@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-alert
-      title="beautiful boys and girls欢迎加入vue-admin-beautifulQQ群：972435319"
+      title="beautiful boys and girls欢迎加入QQ群：972435319"
       type="success"
       :closable="false"
       style="position: fixed"

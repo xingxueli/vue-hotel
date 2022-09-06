@@ -51,6 +51,7 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
+    config.headers['x-wx-openid'] = 'o9gQc5HYG_mDc-Rz9VOUnJN8l5uY'
     if (store.getters['user/accessToken']) {
       config.headers[tokenName] = store.getters['user/accessToken']
     }

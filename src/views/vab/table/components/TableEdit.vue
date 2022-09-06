@@ -15,8 +15,12 @@
       </el-form-item>
       <el-form-item label="店名" prop="storeId">
         <el-select v-model="form.storeId" placeholder="请选择房间分类">
-          <el-option label="红心农家乐" value="1"></el-option>
-          <el-option label="红兴农家乐" value="2"></el-option>
+          <el-option
+            v-for="item in storeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="客房编码" prop="roomNum">
@@ -27,13 +31,12 @@
       </el-form-item>
       <el-form-item label="分类" prop="type">
         <el-select v-model="form.type" placeholder="请选择房间分类">
-          <el-option label="单间大床房" value="1"></el-option>
-          <el-option label="家庭房1孩" value="2"></el-option>
-          <el-option label="家庭房2孩" value="3"></el-option>
-          <el-option label="双人标准间" value="4"></el-option>
-          <el-option label="三人间" value="5"></el-option>
-          <el-option label="4人间麻将房" value="6"></el-option>
-          <el-option label="双大床房" value="7"></el-option>
+          <el-option
+            v-for="item in typeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="价格" prop="price">
@@ -76,6 +79,46 @@
           thumb: '',
           title: '',
         },
+        storeOptions: [
+          {
+            value: 1,
+            label: '红心农家乐',
+          },
+          {
+            value: 2,
+            label: '红兴农家乐',
+          },
+        ],
+        typeOptions: [
+          {
+            value: 1,
+            label: '单间大床房',
+          },
+          {
+            value: 2,
+            label: '家庭房1孩',
+          },
+          {
+            value: 3,
+            label: '家庭房2孩',
+          },
+          {
+            value: 4,
+            label: '双人标准间',
+          },
+          {
+            value: 5,
+            label: '三人间',
+          },
+          {
+            value: 6,
+            label: '4人间麻将房',
+          },
+          {
+            value: 7,
+            label: '双大床房',
+          },
+        ],
         rules: {
           title: [{ required: true, trigger: 'blur', message: '请输入标题' }],
           roomNum: [
@@ -89,7 +132,6 @@
               required: true,
               trigger: 'change',
               message: '请输入店名',
-              type: 'string',
             },
           ],
           type: [
@@ -97,7 +139,6 @@
               required: true,
               message: '请选择分类',
               trigger: 'change',
-              type: 'string',
             },
           ],
           price: [
