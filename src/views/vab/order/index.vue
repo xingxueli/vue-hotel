@@ -80,7 +80,7 @@
       ></el-table-column>
       <el-table-column
         show-overflow-tooltip
-        prop="roomNum"
+        prop="guestRoomId"
         label="客房id"
       ></el-table-column>
       <el-table-column
