@@ -9,7 +9,7 @@
     <div class="upload">
       <el-alert
         :closable="false"
-        :title="`支持jpg、jpeg、png格式，单次可最多选择${limit}张图片，每张不可大于${size}M，如果大于${size}M会自动为您过滤`"
+        :title="`支持word、excel、pdf、jpg、jpeg、png格式，单次可最多选择${limit}个文件，每张不可大于${size}M，如果大于${size}M会自动为您过滤`"
         type="info"
       ></el-alert>
       <br />
@@ -31,7 +31,7 @@
         :on-progress="handleProgress"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
-        accept="image/png, image/jpeg"
+        accept="image/png, image/jpeg,.docx,.xlsx,.pdf"
         class="upload-content"
         list-type="picture-card"
       >
@@ -82,7 +82,7 @@
     props: {
       url: {
         type: String,
-        default: '/upload',
+        default: '/file/upload',
         required: true,
       },
       name: {
@@ -97,7 +97,7 @@
       },
       size: {
         type: Number,
-        default: 1,
+        default: 16,
         required: true,
       },
     },
@@ -107,7 +107,7 @@
         loading: false,
         dialogVisible: false,
         dialogImageUrl: '',
-        action: 'https://vab-unicloud-3a9da9.service.tcloudbase.com/upload',
+        action: 'http://localhost/file/upload',
         headers: {},
         fileList: [],
         picture: 'picture',
@@ -152,7 +152,7 @@
         if (fileList.length === this.imgNum) {
           setTimeout(() => {
             this.$baseMessage(
-              `上传完成! 共上传${fileList.length}张图片`,
+              `上传完成! 共上传${fileList.length}个文件`,
               'success'
             )
           }, 1000)

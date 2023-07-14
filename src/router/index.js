@@ -168,15 +168,15 @@ export const asyncRoutes = [
             meta: { title: '嵌套路由 1-1' },
             component: () => import('@/views/vab/nested/menu1/menu1-1/index'),
 
-            children: [
-              {
-                path: 'menu1-1-1',
-                name: 'Menu1-1-1',
-                meta: { title: '嵌套路由 1-1-1' },
-                component: () =>
-                  import('@/views/vab/nested/menu1/menu1-1/menu1-1-1/index'),
-              },
-            ],
+            // children: [
+            //   {
+            //     path: 'menu1-1-1',
+            //     name: 'Menu1-1-1',
+            //     meta: { title: '嵌套路由 1-1-1' },
+            //     component: () =>
+            //       import('@/views/vab/nested/menu1/menu1-1/menu1-1-1/index'),
+            //   },
+            // ],
           },
         ],
       },

@@ -3,12 +3,13 @@
     <!-- 级联选择静态树 -->
     <el-tree
       :data="treeData"
+      draggable
       :props="props"
       node-key="id"
       :expand-on-click-node="false"
       :render-content="renderContent"
     />
-    <div style="margin-left: 20px">
+    <!-- <div style="margin-left: 20px">
       <el-button
         style="padding-bottom: 0"
         icon="el-icon-circle-plus-outline"
@@ -17,8 +18,9 @@
       >
         添加父级
       </el-button>
-    </div>
+    </div> -->
     <el-divider />
+    <!-- <treeNode-dialog :visible.sync="dialogVisible" title="添加选项" @commit="addNode" /> -->
   </div>
 </template>
 
@@ -62,9 +64,14 @@
             <span>{node.label}</span>
             <span class="node-operation">
               <i
-                on-click={() => this.append(data)}
+                on-click={() => this.append(node, data)}
                 class="el-icon-plus"
                 title="添加"
+              ></i>
+              <i
+                on-click={() => this.edit(node, data)}
+                class="el-icon-edit"
+                title="编辑"
               ></i>
               <i
                 on-click={() => this.remove(node, data)}
@@ -85,15 +92,26 @@
       },
       addTreeItem() {
         ++this.idGlobal
-        this.dialogVisible = true
+        // this.dialogVisible = true
         this.currentNode = this.activeData.options
       },
       append(data) {
-        console.log(data)
+        const newChild = {
+          id: this.idGlobal++,
+          label: 'testtest',
+          children: [],
+        }
         if (!data.children) {
           this.$set(data, 'children', [])
         }
-        this.dialogVisible = true
+        // this.dialogVisible = true
+        data.children.push(newChild)
+      },
+      edit(node, data) {
+        if (!data.children) {
+          this.$set(data, 'children', [])
+        }
+        // this.dialogVisible = true
         this.currentNode = data.children
       },
       remove(node, data) {
