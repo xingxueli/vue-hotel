@@ -27,8 +27,7 @@
 <script>
   import { getList, doDelete, doCreate, doShelves } from '@/api/treeDemo'
   // import TreeNodeDialog from '@/views/index/TreeNodeDialog'
-  import { getIdGlobal } from '@/utils/db'
-  const idGlobal = getIdGlobal()
+  let idGlobal = 1000
 
   export default {
     // components: {
@@ -61,15 +60,22 @@
       renderContent(h, { node, data, store }) {
         return (
           <div class="custom-tree-node">
-            <span>{node.label}</span>
+            <el-input
+              onInput={($event) => (data.name = $event)}
+              v-show={data.edit}
+              type="text"
+              value={data.name}
+              on-blur={(ev) => this.edit_sure(ev, data)}
+            />
+            <span v-show={!data.edit}>{data.name}</span>
             <span class="node-operation">
               <i
-                on-click={() => this.append(node, data)}
+                on-click={() => this.append(data)}
                 class="el-icon-plus"
                 title="添加"
               ></i>
               <i
-                on-click={() => this.edit(node, data)}
+                on-click={(ev) => this.edit(ev, node, data)}
                 class="el-icon-edit"
                 title="编辑"
               ></i>
@@ -90,35 +96,69 @@
           this.listLoading = false
         }, 500)
       },
-      addTreeItem() {
-        ++this.idGlobal
+      async addTreeItem() {
+        ++idGlobal
+        console.log(idGlobal)
         // this.dialogVisible = true
         this.currentNode = this.activeData.options
       },
-      append(data) {
-        const newChild = {
-          id: this.idGlobal++,
-          label: 'testtest',
-          children: [],
+      async append(parentNode) {
+        try {
+          const newChild = {
+            parentId: parentNode.id,
+            name: 'testtest',
+            children: [],
+            projectId: parentNode.projectId,
+          }
+          console.log(parentNode)
+          const { result } = await doCreate(newChild)
+          // 在指定节点下查找新节点应该插入的位置
+          if (!parentNode.childMenu) {
+            this.$set(parentNode, 'childMenu', [])
+          }
+          const index = parentNode.childMenu.findIndex(
+            (node) => node.id === result.parentId
+          )
+          if (index !== -1) {
+            parentNode.childMenu.splice(index + 1, 0, result) // 将新节点插入到指定位置
+          } else {
+            parentNode.childMenu.push(result) // 如果无法找到指定位置，则将新节点添加到末尾
+          }
+
+          this.newNodeName = '' // 清空输入框
+        } catch (error) {
+          console.error('Failed to add node:', error)
         }
-        if (!data.children) {
-          this.$set(data, 'children', [])
-        }
-        // this.dialogVisible = true
-        data.children.push(newChild)
       },
-      edit(node, data) {
-        if (!data.children) {
-          this.$set(data, 'children', [])
-        }
-        // this.dialogVisible = true
-        this.currentNode = data.children
+      edit(ev, node, data) {
+        data.edit = true
+        this.$nextTick(() => {
+          console.log(ev.target)
+          console.log(ev.target.parentElement)
+          console.log(ev.target.parentElement.parentElement)
+          const $input =
+            ev.target.parentNode.parentNode.querySelector('input') ||
+            ev.target.parentElement.parentElement.querySelector('input')
+          !$input ? '' : $input.focus()
+        })
       },
       remove(node, data) {
         const { parent } = node
         const children = parent.data.children || parent.data
         const index = children.findIndex((d) => d.id === data.id)
         children.splice(index, 1)
+      },
+      edit_sure(ev, data) {
+        const $input =
+          ev.target.parentNode.parentNode.querySelector('input') ||
+          ev.target.parentElement.parentElement.querySelector('input')
+
+        if (!$input) {
+          return false
+        } else {
+          data.name = $input.value
+          data.edit = false
+        }
       },
     },
   }

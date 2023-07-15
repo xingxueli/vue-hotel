@@ -17,12 +17,14 @@ const state = () => ({
   username: '',
   avatar: '',
   permissions: [],
+  userInfo: {},
 })
 const getters = {
   accessToken: (state) => state.accessToken,
   username: (state) => state.username,
   avatar: (state) => state.avatar,
   permissions: (state) => state.permissions,
+  userInfo: (state) => state.userInfo,
 }
 const mutations = {
   setAccessToken(state, accessToken) {
@@ -37,6 +39,9 @@ const mutations = {
   },
   setPermissions(state, permissions) {
     state.permissions = permissions
+  },
+  setUserInfo(state, userInfo) {
+    state.userInfo = userInfo
   },
 }
 const actions = {

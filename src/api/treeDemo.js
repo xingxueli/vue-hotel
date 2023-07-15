@@ -18,7 +18,7 @@ export function doEdit(data) {
 
 export function doCreate(data) {
   return request({
-    url: 'http://localhost/room/create',
+    url: 'http://localhost/menu/create',
     method: 'post',
     data,
   })
