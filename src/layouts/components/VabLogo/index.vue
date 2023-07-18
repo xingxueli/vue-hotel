@@ -2,11 +2,10 @@
   <div :class="'logo-container-' + layout">
     <router-link to="/">
       <!-- 这里是logo变更的位置 -->
-      <vab-remix-icon v-if="logo" class="logo" :icon-class="logo" />
+      <!-- <vab-remix-icon v-if="logo" class="logo" :icon-class="logo" /> -->
       <span
         class="title"
         :class="{ 'hidden-xs-only': layout === 'horizontal' }"
-        :title="title"
       >
         {{ title }}
       </span>
@@ -18,10 +17,15 @@
 
   export default {
     name: 'VabLogo',
+    // 声明 props，指定要接收的参数名
+    props: {
+      title: {
+        type: String,
+        required: true, // 如果父组件没有传递该参数，则会显示警告
+      },
+    },
     data() {
-      return {
-        title: this.$baseTitle,
-      }
+      return {}
     },
     computed: {
       ...mapGetters({
