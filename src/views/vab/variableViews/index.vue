@@ -3,14 +3,16 @@
 </template>
 
 <script>
-  import { getList, doDelete, doCreate, doShelves } from '@/api/treeDemo'
-  // import TreeNodeDialog from '@/views/index/TreeNodeDialog'
-  let idGlobal = 1000
-
   export default {
+    data() {
+      return {
+        menuId: '1',
+      }
+    },
     mounted() {
-      const keyword = this.$route.query.keyword // 获取查询参数
-      console.log(keyword) // 输出传递给路由的查询参数的值
+      const menuId = this.$route.meta.menuId // 获取查询参数
+      this.menuId = menuId
+      console.log(menuId) // 输出传递给路由的查询参数的值
     },
   }
 </script>

@@ -163,8 +163,10 @@
       },
       handleNodeClick(node) {
         // 获取点击的节点的 route 值
+        console.log(node)
         const route = {}
-        route.path = ''
+        route.path = '/vviews'
+        route.component = '@/views/vab/variableViews/index'
         route.query = { id: node.id }
         // 使用 Vue Router 跳转路由
         this.$router.push(route)
