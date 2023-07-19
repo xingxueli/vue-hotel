@@ -71,6 +71,16 @@ export const asyncRoutes = [
         },
       },
       {
+        path: 'vviews',
+        name: 'vviews',
+        component: () => import('@/views/vab/variableViews/index'),
+        meta: {
+          title: 'vviews',
+          permissions: ['admin', 'editor'],
+          menuId: '132233',
+        },
+      },
+      {
         path: 'icon',
         component: EmptyLayout,
         redirect: 'noRedirect',

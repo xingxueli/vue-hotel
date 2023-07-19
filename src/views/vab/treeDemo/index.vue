@@ -8,6 +8,7 @@
       node-key="id"
       :expand-on-click-node="false"
       :render-content="renderContent"
+      @node-click="handleNodeClick"
     />
     <!-- <div style="margin-left: 20px">
       <el-button
@@ -57,6 +58,16 @@
     beforeDestroy() {},
     mounted() {},
     methods: {
+      //       <i
+      //   on-click={(ev) => this.edit(ev, node, data)}
+      //   class="el-icon-edit"
+      //   title="编辑"
+      // ></i>
+      // <i
+      //   on-click={() => this.remove(node, data)}
+      //   class="el-icon-delete"
+      //   title="删除"
+      // ></i>
       renderContent(h, { node, data, store }) {
         return (
           <div class="custom-tree-node">
@@ -73,16 +84,6 @@
                 on-click={() => this.append(data)}
                 class="el-icon-plus"
                 title="添加"
-              ></i>
-              <i
-                on-click={(ev) => this.edit(ev, node, data)}
-                class="el-icon-edit"
-                title="编辑"
-              ></i>
-              <i
-                on-click={() => this.remove(node, data)}
-                class="el-icon-delete"
-                title="删除"
               ></i>
             </span>
           </div>
@@ -159,6 +160,16 @@
           data.name = $input.value
           data.edit = false
         }
+      },
+      handleNodeClick(node) {
+        // 获取点击的节点的 route 值
+        console.log(node)
+        const route = {}
+        route.path = '/vab/vviews'
+        route.component = () => import('@/views/vab/variableViews/index')
+        route.meta = { menuId: node.id }
+        // 使用 Vue Router 跳转路由
+        this.$router.push(route)
       },
     },
   }
