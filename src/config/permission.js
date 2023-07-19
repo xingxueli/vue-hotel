@@ -57,7 +57,7 @@ router.beforeResolve(async (to, from, next) => {
             router.addRoute(item)
           })
           next({ ...to, replace: true })
-        } catch {
+        } catch (err) {
           await store.dispatch('user/resetAccessToken')
           if (progressBar) VabProgress.done()
         }
