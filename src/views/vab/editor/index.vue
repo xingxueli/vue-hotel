@@ -11,12 +11,9 @@
         </el-select>
       </el-form-item>
       <el-form-item label="内容" prop="content" class="vab-quill-content">
-        <vab-quill
-          v-model="form.content"
-          :min-height="400"
-          :options="options"
-        ></vab-quill>
+        <smart-editor id="aa" v-model="form.content"></smart-editor>
       </el-form-item>
+
       <el-form-item>
         <el-button type="primary" @click="handleSee">预览效果</el-button>
         <el-button type="primary" @click="handleSave">保存</el-button>
@@ -32,10 +29,11 @@
 </template>
 
 <script>
-  import vabQuill from '@/plugins/vabQuill'
+  import smartEditor from '@/components/richtext/SmartEditor.vue'
+
   export default {
     name: 'Editor',
-    components: { vabQuill },
+    components: { smartEditor },
     data() {
       return {
         options: {
