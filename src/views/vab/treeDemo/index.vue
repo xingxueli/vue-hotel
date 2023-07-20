@@ -91,8 +91,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { result } = await getList(this.projectId)
-        this.treeData = result
+        const { data } = await getList(this.projectId)
+        this.treeData = data
         setTimeout(() => {
           this.listLoading = false
         }, 500)
@@ -112,18 +112,18 @@
             projectId: parentNode.projectId,
           }
           console.log(parentNode)
-          const { result } = await doCreate(newChild)
+          const { data } = await doCreate(newChild)
           // 在指定节点下查找新节点应该插入的位置
           if (!parentNode.childMenu) {
             this.$set(parentNode, 'childMenu', [])
           }
           const index = parentNode.childMenu.findIndex(
-            (node) => node.id === result.parentId
+            (node) => node.id === data.parentId
           )
           if (index !== -1) {
-            parentNode.childMenu.splice(index + 1, 0, result) // 将新节点插入到指定位置
+            parentNode.childMenu.splice(index + 1, 0, data) // 将新节点插入到指定位置
           } else {
-            parentNode.childMenu.push(result) // 如果无法找到指定位置，则将新节点添加到末尾
+            parentNode.childMenu.push(data) // 如果无法找到指定位置，则将新节点添加到末尾
           }
 
           this.newNodeName = '' // 清空输入框
@@ -165,11 +165,21 @@
         // 获取点击的节点的 route 值
         console.log(node)
         const route = {}
-        route.path = '/vab/vviews'
-        route.component = () => import('@/views/vab/variableViews/index')
+        // vviews -> /vab/vviews
+        route.path = handlePath(node.path)
+        // route.component = () => import('@/views/vab/variableViews/index')
         route.meta = { menuId: node.id }
         // 使用 Vue Router 跳转路由
         this.$router.push(route)
+      },
+      handlePath(routePath) {
+        if (isExternal(routePath)) {
+          return routePath
+        }
+        if (isExternal(this.fullPath)) {
+          return this.fullPath
+        }
+        return path.resolve(this.fullPath, routePath)
       },
     },
   }
