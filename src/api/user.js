@@ -18,7 +18,7 @@ export function getUserInfo(accessToken) {
     url: '/userInfo',
     method: 'post',
     data: {
-      [tokenName]: accessToken,
+      accessToken: accessToken,
     },
   })
 }
