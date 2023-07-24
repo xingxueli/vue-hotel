@@ -87,7 +87,7 @@
     },
     data() {
       const validateusername = (rule, value, callback) => {
-        if ('' == value) {
+        if ('' === value) {
           callback(new Error('用户名不能为空'))
         } else {
           callback()
@@ -143,11 +143,11 @@
       document.body.style.overflow = 'auto'
     },
     mounted() {
-      this.form.username = 'admin'
-      this.form.password = '123456'
-      setTimeout(() => {
-        this.handleLogin()
-      }, 3000)
+      // this.form.username = 'admin'
+      // this.form.password = '123456'
+      // setTimeout(() => {
+      //   this.handleLogin()
+      // }, 3000)
     },
     methods: {
       handlePassword() {

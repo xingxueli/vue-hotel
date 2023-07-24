@@ -49,8 +49,8 @@ const actions = {
     commit('setPermissions', permissions)
   },
   async login({ commit }, userInfo) {
-    const { data } = await login(userInfo)
-    const accessToken = data[tokenName]
+    const data = await login(userInfo)
+    const { accessToken } = data.result
     if (accessToken) {
       commit('setAccessToken', accessToken)
       const hour = new Date().getHours()
@@ -73,15 +73,15 @@ const actions = {
     }
   },
   async getUserInfo({ commit, state }) {
-    const { data } = await getUserInfo(state.accessToken)
+    const data = await getUserInfo(state.accessToken)
     if (!data) {
       Vue.prototype.$baseMessage('验证失败，请重新登录...', 'error')
       return false
     }
-    let { permissions, username, avatar } = data
-    if (permissions && username && Array.isArray(permissions)) {
+    let { permissions, name, avatar } = data.result
+    if (permissions && name && Array.isArray(permissions)) {
       commit('setPermissions', permissions)
-      commit('setUsername', username)
+      commit('setUsername', name)
       commit('setAvatar', avatar)
       return permissions
     } else {
