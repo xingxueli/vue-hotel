@@ -18,7 +18,8 @@ const mutations = {
     state.routes = constantRoutes.concat(routes)
   },
   setAllRoutes(state, routes) {
-    state.routes = constantRoutes.concat(routes)
+    // state.routes = constantRoutes.concat(routes)
+    state.routes = routes
   },
   setPartialRoutes(state, routes) {
     state.partialRoutes = constantRoutes.concat(routes)

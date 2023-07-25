@@ -165,8 +165,6 @@
             this.$store
               .dispatch('user/login', this.form)
               .then(() => {
-                console.log(111)
-                console.log(this)
                 const routerPath =
                   this.redirect === '/404' || this.redirect === '/401'
                     ? '/'

@@ -8,7 +8,8 @@ $base-color-default: #0187fb;
 //默认层级
 $base-z-index: 999;
 //横向布局纵向布局时菜单背景色
-$base-menu-background: #21252b;
+// $base-menu-background: #21252b;
+$base-menu-background: #fff;
 //菜单文字颜色
 $base-menu-color: hsla(0, 0%, 100%, 0.95);
 //菜单选中文字颜色
@@ -16,7 +17,8 @@ $base-menu-color-active: hsla(0, 0%, 100%, 0.95);
 //菜单选中背景色
 $base-menu-background-active: $base-color-default;
 //标题颜色
-$base-title-color: #fff;
+// $base-title-color: #fff;
+$base-title-color: #303133;
 //字体大小配置
 $base-font-size-small: 12px;
 $base-font-size-default: 14px;
