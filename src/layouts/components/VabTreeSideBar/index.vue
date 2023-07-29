@@ -1,10 +1,10 @@
 <template>
-  <el-scrollbar class="side-bar-container" :class="{ 'is-collapse': collapse }">
+  <el-scrollbar class="side-bar-container">
     <vab-logo :title="projectName" />
     <div class="tree-container">
       <!-- 级联选择静态树 -->
       <el-tree
-        :data="routes"
+        :data="menuList[0].children"
         draggable
         :props="props"
         node-key="id"
@@ -22,7 +22,7 @@
           添加父级
         </el-button>
       </div> -->
-      <el-divider />
+      <!-- <el-divider /> -->
       <!-- <treeNode-dialog :visible.sync="dialogVisible" title="添加选项" @commit="addNode" /> -->
     </div>
   </el-scrollbar>
@@ -30,16 +30,14 @@
 <script>
   import variables from '@/styles/variables.scss'
   import { mapGetters } from 'vuex'
-  import { defaultOopeneds, uniqueOpened } from '@/config'
   import { isExternal } from '@/utils/validate'
   import path from 'path'
-  import { doCreate } from '@/api/treeDemo'
+  import { menuCreate } from '@/api/menu'
 
   export default {
     name: 'VabTreeSideBar',
     data() {
       return {
-        uniqueOpened,
         projectName: 'mvdklsmakfds',
         props: {
           label: 'name',
@@ -49,22 +47,8 @@
     },
     computed: {
       ...mapGetters({
-        collapse: 'settings/collapse',
-        routes: 'routes/routes',
+        menuList: 'routes/menuList',
       }),
-      defaultOpens() {
-        if (this.collapse) {
-        }
-        return defaultOopeneds
-      },
-      activeMenu() {
-        const route = this.$route
-        const { meta, path } = route
-        if (meta.activeMenu) {
-          return meta.activeMenu
-        }
-        return path
-      },
       variables() {
         return variables
       },
@@ -83,14 +67,7 @@
       renderContent(h, { node, data, store }) {
         return (
           <div class="custom-tree-node">
-            <el-input
-              onInput={($event) => (data.name = $event)}
-              v-show={data.edit}
-              type="text"
-              value={data.name}
-              on-blur={(ev) => this.edit_sure(ev, data)}
-            />
-            <span v-show={!data.edit}>{data.name}</span>
+            <span>{data.name}</span>
             <span class="node-operation">
               <i
                 on-click={() => this.append(data)}
@@ -124,7 +101,7 @@
             projectId: parentNode.projectId,
           }
           console.log(parentNode)
-          const { data } = await doCreate(newChild)
+          const { data } = await menuCreate(newChild)
           // 在指定节点下查找新节点应该插入的位置
           if (!parentNode.children) {
             this.$set(parentNode, 'children', [])
@@ -194,8 +171,12 @@
         return path.resolve(this.fullPath, routePath)
       },
       handleLink(node) {
-        console.log(node)
         const routePath = node.path
+
+        // console.log(routePath)
+        // console.log(this.fullPath)
+        // console.log(isExternal(this.fullPath))
+        // console.log(this.$route.path !== path.resolve(this.fullPath, routePath))
 
         if (isExternal(routePath)) {
           window.location.href = routePath

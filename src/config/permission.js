@@ -52,6 +52,7 @@ router.beforeResolve(async (to, from, next) => {
             accessRoutes = await store.dispatch('routes/setRoutes', permissions)
           } else if (authentication === 'all') {
             accessRoutes = await store.dispatch('routes/setAllRoutes')
+            await store.dispatch('routes/setMenuList')
           }
           accessRoutes.forEach((item) => {
             router.addRoute(item)

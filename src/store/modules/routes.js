@@ -3,14 +3,19 @@
  */
 import { asyncRoutes, constantRoutes } from '@/router'
 import { getRouterList } from '@/api/router'
+import { getMenuList, getMenuMap } from '@/api/menu'
 import { convertRouter, filterAsyncRoutes } from '@/utils/handleRoutes'
 
 const state = () => ({
   routes: [],
+  menuList: [],
+  menuMap: {},
   partialRoutes: [],
 })
 const getters = {
   routes: (state) => state.routes,
+  menuList: (state) => state.menuList,
+  menuMap: (state) => state.menuMap,
   partialRoutes: (state) => state.partialRoutes,
 }
 const mutations = {
@@ -20,6 +25,12 @@ const mutations = {
   setAllRoutes(state, routes) {
     // state.routes = constantRoutes.concat(routes)
     state.routes = routes
+  },
+  setMenuList(state, menuList) {
+    state.menuList = menuList
+  },
+  setMenuMap(state, menuMap) {
+    state.menuMap = menuMap
   },
   setPartialRoutes(state, routes) {
     state.partialRoutes = constantRoutes.concat(routes)
@@ -41,6 +52,13 @@ const actions = {
     let accessRoutes = convertRouter(data)
     commit('setAllRoutes', accessRoutes)
     return accessRoutes
+  },
+  async setMenuList({ commit, dispatch }) {
+    let { data } = await getMenuList()
+    commit('setMenuList', data)
+    let menuMap = await getMenuMap(data)
+    commit('setMenuMap', menuMap)
+    return data
   },
   setPartialRoutes({ commit }, accessRoutes) {
     commit('setPartialRoutes', accessRoutes)

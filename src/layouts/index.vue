@@ -15,7 +15,7 @@
           :class="{ 'tag-view-show': tabsBar }"
         >
           <div class="vab-main">
-            <vab-tabs-bar />
+            <vab-tree-tabs-bar />
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
       <div class="vab-main" :class="collapse ? 'is-collapse-main' : ''">
         <div :class="header === 'fixed' ? 'fixed-header' : ''">
           <vab-nav-bar />
-          <vab-tabs-bar v-if="tabsBar === 'true' || tabsBar === true" />
+          <vab-tree-tabs-bar v-if="tabsBar === 'true' || tabsBar === true" />
         </div>
         <!-- <vab-ad /> -->
         <vab-app-main />

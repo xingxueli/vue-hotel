@@ -283,7 +283,7 @@ const data = [
 ]
 module.exports = [
   {
-    url: '/menu/navigate',
+    url: '/routes/navigate',
     type: 'post',
     response() {
       return { code: 200, msg: 'success', data: data }

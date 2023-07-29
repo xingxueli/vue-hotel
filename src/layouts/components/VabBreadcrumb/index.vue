@@ -1,29 +1,55 @@
 <template>
   <el-breadcrumb class="breadcrumb-container" separator=">">
-    <el-breadcrumb-item v-for="item in list" :key="item.path">
-      {{ item.meta.title }}
+    <el-breadcrumb-item v-for="item in list" :key="item">
+      {{ item }}
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'VabBreadcrumb',
+    // // 声明 props，指定要接收的参数名
+    // props: {
+    //   title: {
+    //     type: String,
+    //     required: true, // 如果父组件没有传递该参数，则会显示警告
+    //   },
+    // },
     data() {
       return {
-        list: this.getBreadcrumb(),
+        list: [],
       }
+    },
+    computed: {
+      ...mapGetters({
+        menuMap: 'routes/menuMap',
+      }),
     },
     watch: {
       $route() {
+        // console.log(this.$route)
         this.list = this.getBreadcrumb()
       },
+      immediate: true,
+    },
+    created() {
+      this.list = this.getBreadcrumb()
     },
     methods: {
       getBreadcrumb() {
-        return this.$route.matched.filter(
-          (item) => item.name && item.meta.title
-        )
+        // let bread = this.$route.matched.filter(
+        //   (item) => item.name && item.meta.title
+        // )
+        // console.log(bread)
+        // return bread
+        return this.menuMap.get(this.$route.path).catalogList
+      },
+      getLabel(path) {
+        // console.log(this.menuMap)
+        return this.menuMap.get(path)
       },
     },
   }
